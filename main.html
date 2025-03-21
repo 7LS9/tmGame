@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<!-- 通过键盘方向键控制图片移动 -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>图片移动</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        div{                             /*设置主容器样式*/
+            width: 800px;
+            height: 600px;
+            display: inline-block;
+            position: relative;
+            background-color: pink;
+        }
+        #img1{
+            position: absolute;
+            z-index: 999;
+            border-radius: 50px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="box1">
+    <!-- 自定义一张图片 -->
+    <img id='img1' src="ToadwalkSMB2.gif"  />
+</div>
+
+
+
+<script>
+    var jsDiv1 = document.getElementById('box1')
+    var jsImg = document.getElementById('img1');
+    var stepx ;     //x轴每次移动的象素值
+    var stepy ;     //y轴每次移动的象素值
+
+
+    document.addEventListener('keydown',function(e){     /*添加键盘按下事件*/
+        var event = e || window.event
+
+        switch (event.keyCode){
+            case 37:                                     /*左键按下*/
+                stepx = -20;
+                stepy = 0;
+                break;
+            case 38:                                     /*上键按下*/
+                stepx = 0;
+                stepy = -20;
+                break;
+            case 39:                                     /*右键按下*/
+                stepx = 20;
+                stepy = 0;
+                break;
+            case 40:                                    /*下键按下*/
+                stepx = 0;
+                stepy = 20;
+                break;
+
+            default:
+                stepx = 0;
+                stepy = 0;
+        }
+        move()                                          /*执行移动图片函数*/
+    },false)
+
+    function move(){	                                /*定义移动图片函数 */
+        jsImg.style.top = jsImg.offsetTop + stepy + 'px';      //y轴移动
+        jsImg.style.left = jsImg.offsetLeft + stepx + 'px';    //y轴移动
+        if (jsImg.offsetTop<0){	            /*超出上边距时，将top值置0*/
+            jsImg.style.top=0+'px';
+        }
+        else if(jsImg.offsetTop>500){	    /*超出下边距时，将top值置容器的高度*/
+
+            jsImg.style.top=500+'px';
+        }
+        if (jsImg.offsetLeft<0){            /*超出左边距时，将left值置0*/
+
+            jsImg.style.left=0+'px';
+        }
+        else if(jsImg.offsetLeft>700){	    /*超出右边距时，将left值置容器的宽度*/
+
+            jsImg.style.left=700+'px';
+        }
+
+    }
+</script>
+</body>
+</html>
